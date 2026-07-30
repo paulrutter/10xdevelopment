@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>10x Development — Paul Rutter</title>
+  <meta name="description" content="Personal home of Paul Rutter — software development." />
+
+  <!-- Open Graph / social preview -->
+  <meta property="og:title" content="10x Development — Paul Rutter" />
+  <meta property="og:description" content="Personal home of Paul Rutter — software development." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://10xdevelopment.nl" />
+
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>" />
+
+  <style>
+    :root {
+      --bg: #f7f8fa;
+      --panel: #ffffff;
+      --text: #10131a;
+      --muted: #5b6472;
+      --accent: #2f6df6;
+      --border: #e6e9ef;
+      --shadow: 0 20px 60px rgba(16, 19, 26, 0.08);
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #0c0e13;
+        --panel: #14171f;
+        --text: #f2f4f8;
+        --muted: #9aa4b2;
+        --accent: #5b8bff;
+        --border: #232734;
+        --shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+      }
+    }
+
+    * { box-sizing: border-box; }
+    html, body { height: 100%; margin: 0; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background:
+        radial-gradient(1200px 600px at 50% -10%, color-mix(in srgb, var(--accent) 14%, transparent), transparent 60%),
+        var(--bg);
+      color: var(--text);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .card {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      box-shadow: var(--shadow);
+      max-width: 520px;
+      width: 100%;
+      padding: 48px 40px;
+      text-align: center;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+      color: var(--accent);
+      background: color-mix(in srgb, var(--accent) 12%, transparent);
+      padding: 6px 14px;
+      border-radius: 999px;
+      margin-bottom: 28px;
+    }
+
+    h1 {
+      font-size: clamp(28px, 6vw, 40px);
+      line-height: 1.1;
+      margin: 0 0 12px;
+      letter-spacing: -0.02em;
+    }
+    h1 .x { color: var(--accent); }
+
+    p.lead {
+      color: var(--muted);
+      font-size: 17px;
+      line-height: 1.6;
+      margin: 0 0 32px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--accent);
+      color: #fff;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 16px;
+      padding: 14px 26px;
+      border-radius: 12px;
+      transition: transform 0.12s ease, box-shadow 0.12s ease, opacity 0.12s ease;
+      box-shadow: 0 8px 20px color-mix(in srgb, var(--accent) 35%, transparent);
+    }
+    .btn:hover { transform: translateY(-2px); opacity: 0.95; }
+    .btn:active { transform: translateY(0); }
+    .btn svg { width: 20px; height: 20px; fill: currentColor; }
+
+    .links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      justify-content: center;
+    }
+
+    .btn.secondary {
+      background: transparent;
+      color: var(--text);
+      border: 1px solid var(--border);
+      box-shadow: none;
+    }
+    .btn.secondary:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    .footer {
+      margin-top: 32px;
+      font-size: 13px;
+      color: var(--muted);
+    }
+    .footer a { color: var(--muted); }
+  </style>
+</head>
+<body>
+  <main class="card">
+    <span class="badge">⚡ 10x Development</span>
+
+    <h1>Paul Rutter<span class="x">.</span></h1>
+    <p class="lead">
+      Director of Technology at BlueConic. This is the personal home of my
+      projects and code — find me on the links below.
+    </p>
+
+    <div class="links">
+      <a class="btn" href="https://github.com/paulrutter" rel="me noopener">
+        <svg viewBox="0 0 16 16" aria-hidden="true">
+          <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0016 8c0-4.42-3.58-8-8-8z"/>
+        </svg>
+        GitHub
+      </a>
+      <a class="btn secondary" href="https://www.linkedin.com/in/rutterpaul/" rel="me noopener">
+        <svg viewBox="0 0 16 16" aria-hidden="true">
+          <path d="M13.63 0H2.37A2.34 2.34 0 000 2.31v11.38A2.34 2.34 0 002.37 16h11.26A2.34 2.34 0 0016 13.69V2.31A2.34 2.34 0 0013.63 0zM4.94 13.12H2.98V6.83h1.96v6.29zM3.96 5.97a1.14 1.14 0 110-2.28 1.14 1.14 0 010 2.28zM13.13 13.12h-1.96V9.9c0-.77-.01-1.76-1.07-1.76-1.07 0-1.24.84-1.24 1.7v3.28H6.9V6.83h1.88v.86h.03c.26-.5.9-1.02 1.85-1.02 1.98 0 2.35 1.3 2.35 3v3.45z"/>
+        </svg>
+        LinkedIn
+      </a>
+    </div>
+
+    <div class="footer">
+      &copy; <span id="year">2026</span> Paul Rutter · 10xdevelopment.nl
+    </div>
+  </main>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
