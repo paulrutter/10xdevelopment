@@ -42,6 +42,18 @@
   }
   </script>
 
+  <!-- Apply saved theme before paint to avoid a flash -->
+  <script>
+    (function () {
+      try {
+        var t = localStorage.getItem('theme');
+        if (t === 'dark' || t === 'light') {
+          document.documentElement.setAttribute('data-theme', t);
+        }
+      } catch (e) {}
+    })();
+  </script>
+
   <style>
     :root {
       --bg: #f7f8fa;
@@ -51,9 +63,22 @@
       --accent: #2f6df6;
       --border: #e6e9ef;
       --shadow: 0 20px 60px rgba(16, 19, 26, 0.08);
+      --term-green: #16a34a;
     }
+    /* Explicit user choice wins */
+    :root[data-theme="dark"] {
+      --bg: #0c0e13;
+      --panel: #14171f;
+      --text: #f2f4f8;
+      --muted: #9aa4b2;
+      --accent: #5b8bff;
+      --border: #232734;
+      --shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+      --term-green: #4ade80;
+    }
+    /* No explicit choice → follow the OS */
     @media (prefers-color-scheme: dark) {
-      :root {
+      :root:not([data-theme]) {
         --bg: #0c0e13;
         --panel: #14171f;
         --text: #f2f4f8;
@@ -61,6 +86,7 @@
         --accent: #5b8bff;
         --border: #232734;
         --shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+        --term-green: #4ade80;
       }
     }
 
@@ -103,7 +129,13 @@
       padding: 6px 14px;
       border-radius: 999px;
       margin-bottom: 28px;
+      border: none;
+      cursor: pointer;
+      font-family: inherit;
+      transition: transform 0.12s ease;
     }
+    .badge:hover { transform: translateY(-1px); }
+    .badge:active { transform: translateY(0); }
 
     h1 {
       font-size: clamp(28px, 6vw, 40px);
@@ -137,15 +169,16 @@
     .btn:active { transform: translateY(0); }
     .btn svg { width: 20px; height: 20px; fill: currentColor; }
 
-    a:focus-visible, .btn:focus-visible {
+    a:focus-visible, .btn:focus-visible, .badge:focus-visible, .icon-btn:focus-visible {
       outline: 2px solid var(--accent);
       outline-offset: 3px;
       border-radius: 12px;
     }
 
     @media (prefers-reduced-motion: reduce) {
-      .btn { transition: none; }
+      .btn, .badge, .icon-btn { transition: none; }
       .btn:hover { transform: none; }
+      .term { animation: none !important; }
     }
 
     .links {
@@ -172,11 +205,152 @@
       color: var(--muted);
     }
     .footer a { color: var(--muted); }
+    .hint {
+      margin-top: 10px;
+      font-size: 12px;
+      color: var(--muted);
+      opacity: 0.75;
+    }
+    .hint kbd {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      background: color-mix(in srgb, var(--accent) 14%, transparent);
+      color: var(--accent);
+      border-radius: 6px;
+      padding: 1px 6px;
+      font-size: 11px;
+    }
+
+    /* Theme toggle */
+    .icon-btn {
+      position: fixed;
+      top: 18px;
+      right: 18px;
+      width: 42px;
+      height: 42px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 12px;
+      background: var(--panel);
+      border: 1px solid var(--border);
+      color: var(--text);
+      cursor: pointer;
+      box-shadow: var(--shadow);
+      transition: transform 0.12s ease, border-color 0.12s ease;
+      z-index: 20;
+    }
+    .icon-btn:hover { transform: translateY(-2px); border-color: var(--accent); }
+    .icon-btn svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+    .icon-btn .moon { display: none; }
+    :root[data-theme="dark"] .icon-btn .sun { display: block; }
+    :root[data-theme="dark"] .icon-btn .moon { display: none; }
+    @media (prefers-color-scheme: dark) {
+      :root:not([data-theme]) .icon-btn .sun { display: block; }
+      :root:not([data-theme]) .icon-btn .moon { display: none; }
+    }
+    :root[data-theme="light"] .icon-btn .sun { display: none; }
+    :root[data-theme="light"] .icon-btn .moon { display: block; }
+
+    /* Terminal */
+    .term {
+      position: fixed;
+      left: 50%;
+      bottom: 24px;
+      transform: translateX(-50%);
+      width: min(660px, calc(100% - 24px));
+      max-height: min(70vh, 460px);
+      display: flex;
+      flex-direction: column;
+      background: color-mix(in srgb, var(--panel) 92%, black);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      box-shadow: 0 30px 80px rgba(0, 0, 0, 0.45);
+      overflow: hidden;
+      z-index: 30;
+      animation: term-in 0.16s ease-out;
+    }
+    :root[data-theme="light"] .term { background: #0c0e13; border-color: #232734; }
+    @keyframes term-in {
+      from { opacity: 0; transform: translate(-50%, 12px); }
+      to   { opacity: 1; transform: translate(-50%, 0); }
+    }
+    .term[hidden] { display: none; }
+    .term-bar {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 12px;
+      background: rgba(255, 255, 255, 0.04);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    }
+    .dot { width: 12px; height: 12px; border-radius: 50%; display: inline-block; }
+    .dot.r { background: #ff5f57; }
+    .dot.y { background: #febc2e; }
+    .dot.g { background: #28c840; }
+    .term-title {
+      margin-left: 6px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: 12px;
+      color: #9aa4b2;
+      flex: 1;
+    }
+    .term-close {
+      background: none;
+      border: none;
+      color: #9aa4b2;
+      cursor: pointer;
+      font-size: 15px;
+      line-height: 1;
+      padding: 2px 6px;
+      border-radius: 6px;
+    }
+    .term-close:hover { color: #fff; background: rgba(255, 255, 255, 0.08); }
+    .term-body {
+      flex: 1;
+      overflow-y: auto;
+      padding: 14px 16px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: 13.5px;
+      line-height: 1.55;
+      color: #e6e9ef;
+      white-space: pre-wrap;
+      word-break: break-word;
+    }
+    .term-body .accent { color: #5b8bff; }
+    .term-body .green { color: #4ade80; }
+    .term-body .muted { color: #9aa4b2; }
+    .term-body a { color: #5b8bff; }
+    .term-line { margin: 0; }
+    .term-cmd .accent { color: #4ade80; }
+    .term-input-line {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 16px 14px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: 13.5px;
+    }
+    .term-input-line .prompt { color: #4ade80; white-space: nowrap; }
+    .term-input-line .prompt .accent { color: #5b8bff; }
+    #termInput {
+      flex: 1;
+      background: transparent;
+      border: none;
+      outline: none;
+      color: #e6e9ef;
+      font: inherit;
+      caret-color: #4ade80;
+    }
   </style>
 </head>
 <body>
+  <button class="icon-btn" id="themeToggle" aria-label="Toggle light or dark theme" title="Toggle theme">
+    <svg class="moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12.8A9 9 0 1111.2 3a7 7 0 009.8 9.8z"/></svg>
+    <svg class="sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+  </button>
+
   <main class="card">
-    <span class="badge">⚡ 10x Development</span>
+    <button class="badge" id="openTerm" title="Open terminal">⚡ 10x Development</button>
 
     <h1>Paul Rütter</h1>
     <p class="lead">
@@ -202,10 +376,199 @@
     <div class="footer">
       &copy; <span id="year">2026</span> Paul Rütter · 10xdevelopment.nl
     </div>
+    <p class="hint">Psst — press <kbd>`</kbd> or tap the badge for a terminal.</p>
   </main>
+
+  <!-- Terminal easter egg -->
+  <div class="term" id="term" hidden role="dialog" aria-label="Terminal" aria-modal="false">
+    <div class="term-bar">
+      <span class="dot r"></span><span class="dot y"></span><span class="dot g"></span>
+      <span class="term-title">paul@10xdevelopment: ~</span>
+      <button class="term-close" id="termClose" aria-label="Close terminal" title="Close">✕</button>
+    </div>
+    <div class="term-body" id="termBody"></div>
+    <div class="term-input-line">
+      <span class="prompt">visitor@10x<span class="accent">:~$</span></span>
+      <input id="termInput" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" aria-label="Terminal command input" />
+    </div>
+  </div>
 
   <script>
     document.getElementById('year').textContent = new Date().getFullYear();
+
+    /* ---------- Theme toggle ---------- */
+    (function () {
+      var root = document.documentElement;
+      var btn = document.getElementById('themeToggle');
+      function effective() {
+        var t = root.getAttribute('data-theme');
+        if (t) return t;
+        return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+      }
+      function setTheme(t) {
+        root.setAttribute('data-theme', t);
+        try { localStorage.setItem('theme', t); } catch (e) {}
+      }
+      btn.addEventListener('click', function () {
+        setTheme(effective() === 'dark' ? 'light' : 'dark');
+      });
+      window.__setTheme = setTheme;
+      window.__effectiveTheme = effective;
+    })();
+
+    /* ---------- Terminal easter egg ---------- */
+    (function () {
+      var term = document.getElementById('term');
+      var body = document.getElementById('termBody');
+      var input = document.getElementById('termInput');
+      var history = [];
+      var histIdx = -1;
+      var booted = false;
+
+      function esc(s) {
+        return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+      }
+      function print(html) {
+        var div = document.createElement('div');
+        div.className = 'term-line';
+        div.innerHTML = html;
+        body.appendChild(div);
+        body.scrollTop = body.scrollHeight;
+      }
+      function printCmd(cmd) {
+        print('<span class="term-cmd"><span class="accent">visitor@10x:~$</span> ' + esc(cmd) + '</span>');
+      }
+
+      var COMMANDS = {
+        help: function () {
+          return [
+            'Available commands:',
+            '  <span class="accent">whoami</span>    who is this',
+            '  <span class="accent">about</span>     the short bio',
+            '  <span class="accent">ls</span>        list files',
+            '  <span class="accent">cat</span> &lt;f&gt;   read a file (try: cat about.txt)',
+            '  <span class="accent">projects</span>  where the code lives',
+            '  <span class="accent">contact</span>   how to reach me',
+            '  <span class="accent">social</span>    open github / linkedin',
+            '  <span class="accent">theme</span>     toggle, or: theme dark|light',
+            '  <span class="accent">coffee</span>    essential fuel',
+            '  <span class="accent">echo</span> &lt;x&gt;  say something',
+            '  <span class="accent">date</span>      current time',
+            '  <span class="accent">uname</span>     system info',
+            '  <span class="accent">clear</span>     clear the screen',
+            '  <span class="accent">exit</span>      close the terminal',
+            '',
+            '<span class="muted">…and maybe a few that aren\'t listed. 😉</span>'
+          ].join('\n');
+        },
+        whoami: function () {
+          return 'Paul Rütter — Director of Technology @ <span class="accent">BlueConic</span>. Builder, tinkerer, occasional 10x-er.';
+        },
+        about: function () { return COMMANDS['cat'](['about.txt']); },
+        ls: function () {
+          return 'about.txt   projects/   contact.txt   resume.pdf   <span class="muted">secrets/ 🔒</span>';
+        },
+        cat: function (args) {
+          var f = (args[0] || '').toLowerCase();
+          if (f === 'about.txt' || f === 'about')
+            return 'Technology leader based in the Netherlands. I care about clean systems,\nfast teams, and shipping things that matter. This little site is my corner\nof the web — mostly a launchpad to my code and profiles.';
+          if (f === 'contact.txt' || f === 'contact') return COMMANDS['contact']();
+          if (f === 'resume.pdf') return '<span class="muted">cat: resume.pdf: binary file — try `social` and say hi instead.</span>';
+          if (f.indexOf('secret') === 0) return '<span class="muted">cat: ' + esc(f) + ': Permission denied 🔒</span>';
+          if (!f) return '<span class="muted">usage: cat &lt;file&gt; — see `ls`</span>';
+          return '<span class="muted">cat: ' + esc(f) + ': No such file or directory</span>';
+        },
+        projects: function () {
+          return 'The code lives on GitHub → <a href="https://github.com/paulrutter" target="_blank" rel="noopener">github.com/paulrutter</a>\n<span class="muted">(pinned repos are the good stuff)</span>';
+        },
+        contact: function () {
+          return 'GitHub:   <a href="https://github.com/paulrutter" target="_blank" rel="noopener">github.com/paulrutter</a>\nLinkedIn: <a href="https://www.linkedin.com/in/rutterpaul/" target="_blank" rel="noopener">linkedin.com/in/rutterpaul</a>';
+        },
+        social: function (args) {
+          var w = (args[0] || '').toLowerCase();
+          if (w === 'github') { window.open('https://github.com/paulrutter', '_blank', 'noopener'); return 'Opening GitHub…'; }
+          if (w === 'linkedin') { window.open('https://www.linkedin.com/in/rutterpaul/', '_blank', 'noopener'); return 'Opening LinkedIn…'; }
+          return 'usage: social github | linkedin\n' + COMMANDS['contact']();
+        },
+        theme: function (args) {
+          var w = (args[0] || '').toLowerCase();
+          if (w === 'dark' || w === 'light') { window.__setTheme(w); return 'Theme → <span class="green">' + w + '</span>'; }
+          var next = window.__effectiveTheme() === 'dark' ? 'light' : 'dark';
+          window.__setTheme(next);
+          return 'Theme → <span class="green">' + next + '</span>';
+        },
+        coffee: function () {
+          return '      ( (\n       ) )\n    ........\n    |      |]\n    \\      /\n     `----\'   <span class="green">☕ 10x productivity restored.</span>';
+        },
+        echo: function (args) { return esc(args.join(' ')); },
+        date: function () { return new Date().toString(); },
+        uname: function () { return '10xOS ⚡ 5.10.0-10x #1 SMP x86_64 GNU/Coffee'; },
+        sudo: function (args) {
+          var rest = args.join(' ').toLowerCase();
+          if (rest.indexOf('hire') === 0 || rest.indexOf('hire-me') >= 0)
+            return '<span class="green">Access granted.</span> Great taste. → <a href="https://www.linkedin.com/in/rutterpaul/" target="_blank" rel="noopener">let\'s talk on LinkedIn</a>';
+          return '<span class="muted">visitor is not in the sudoers file. This incident will be reported. 😏</span>';
+        },
+        clear: function () { body.innerHTML = ''; return null; },
+        exit: function () { close(); return null; },
+        rm: function (args) {
+          if (args.join(' ').indexOf('-rf') >= 0) return '<span class="muted">Nice try. Nothing here is that fragile. 🛡️</span>';
+          return '<span class="muted">rm: nothing to remove</span>';
+        },
+        pwd: function () { return '/home/visitor/10xdevelopment.nl'; },
+        help_hidden: true
+      };
+
+      var ALIASES = { cls: 'clear', quit: 'exit', bye: 'exit', 'hire-me': function () { return COMMANDS['sudo'](['hire-me']); } };
+
+      function run(raw) {
+        var line = raw.trim();
+        if (!line) return;
+        printCmd(line);
+        history.push(line); histIdx = history.length;
+        var parts = line.split(/\s+/);
+        var cmd = parts[0].toLowerCase();
+        var args = parts.slice(1);
+        if (ALIASES[cmd]) {
+          if (typeof ALIASES[cmd] === 'function') { var r0 = ALIASES[cmd](args); if (r0 != null) print(r0); return; }
+          cmd = ALIASES[cmd];
+        }
+        var fn = COMMANDS[cmd];
+        if (typeof fn === 'function') {
+          var out = fn(args);
+          if (out != null) print(out);
+        } else {
+          print('<span class="muted">command not found: ' + esc(cmd) + ' — type <span class="accent">help</span></span>');
+        }
+      }
+
+      function open() {
+        term.hidden = false;
+        if (!booted) {
+          booted = true;
+          print('<span class="green">10x Development shell</span> — type <span class="accent">help</span> to get started.');
+        }
+        setTimeout(function () { input.focus(); }, 30);
+      }
+      function close() { term.hidden = true; }
+      function toggle() { term.hidden ? open() : close(); }
+
+      document.getElementById('openTerm').addEventListener('click', open);
+      document.getElementById('termClose').addEventListener('click', close);
+
+      input.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter') { run(input.value); input.value = ''; }
+        else if (e.key === 'ArrowUp') { if (histIdx > 0) { histIdx--; input.value = history[histIdx] || ''; e.preventDefault(); } }
+        else if (e.key === 'ArrowDown') { if (histIdx < history.length - 1) { histIdx++; input.value = history[histIdx] || ''; } else { histIdx = history.length; input.value = ''; } }
+        else if (e.key === 'Escape') { close(); }
+      });
+
+      document.addEventListener('keydown', function (e) {
+        var tag = (e.target.tagName || '').toLowerCase();
+        if (e.key === '`' && tag !== 'input' && tag !== 'textarea') { e.preventDefault(); toggle(); }
+        if (e.key === 'Escape' && !term.hidden) { close(); }
+      });
+    })();
   </script>
 </body>
 </html>
