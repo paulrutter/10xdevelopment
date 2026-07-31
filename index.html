@@ -4,15 +4,48 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>10x Development — Paul Rütter</title>
-  <meta name="description" content="Personal home of Paul Rütter — software development." />
+  <meta name="description" content="Personal home of Paul Rütter, Director of Technology at BlueConic — software development, projects, and code." />
+  <meta name="author" content="Paul Rütter" />
+  <link rel="canonical" href="https://10xdevelopment.nl/" />
+  <meta name="theme-color" content="#f7f8fa" media="(prefers-color-scheme: light)" />
+  <meta name="theme-color" content="#0c0e13" media="(prefers-color-scheme: dark)" />
 
   <!-- Open Graph / social preview -->
   <meta property="og:title" content="10x Development — Paul Rütter" />
-  <meta property="og:description" content="Personal home of Paul Rütter — software development." />
+  <meta property="og:description" content="Personal home of Paul Rütter, Director of Technology at BlueConic — software development, projects, and code." />
   <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://10xdevelopment.nl" />
+  <meta property="og:url" content="https://10xdevelopment.nl/" />
+  <meta property="og:site_name" content="10x Development" />
+  <meta property="og:locale" content="en_US" />
+  <meta property="og:image" content="https://10xdevelopment.nl/og-image.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="Paul Rütter — 10x Development" />
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="10x Development — Paul Rütter" />
+  <meta name="twitter:description" content="Personal home of Paul Rütter, Director of Technology at BlueConic." />
+  <meta name="twitter:image" content="https://10xdevelopment.nl/og-image.png" />
 
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+
+  <!-- Structured data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Paul Rütter",
+    "url": "https://10xdevelopment.nl/",
+    "jobTitle": "Director of Technology",
+    "worksFor": { "@type": "Organization", "name": "BlueConic" },
+    "sameAs": [
+      "https://github.com/paulrutter",
+      "https://www.linkedin.com/in/rutterpaul/"
+    ]
+  }
+  </script>
 
   <style>
     :root {
@@ -109,6 +142,17 @@
     .btn:hover { transform: translateY(-2px); opacity: 0.95; }
     .btn:active { transform: translateY(0); }
     .btn svg { width: 20px; height: 20px; fill: currentColor; }
+
+    a:focus-visible, .btn:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 3px;
+      border-radius: 12px;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .btn { transition: none; }
+      .btn:hover { transform: none; }
+    }
 
     .links {
       display: flex;
