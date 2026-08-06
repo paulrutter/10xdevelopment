@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests" />
+  <title>Contact — Paul Rütter · 10x Development</title>
+  <meta name="description" content="Get in touch with Paul Rütter." />
+  <link rel="canonical" href="https://10xdevelopment.nl/contact" />
+  <meta name="theme-color" content="#f7f8fa" media="(prefers-color-scheme: light)" />
+  <meta name="theme-color" content="#0c0e13" media="(prefers-color-scheme: dark)" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+
+  <!-- Apply saved theme before paint to avoid a flash -->
+  <script>
+    (function () {
+      try {
+        var t = localStorage.getItem('theme');
+        if (t === 'dark' || t === 'light') document.documentElement.setAttribute('data-theme', t);
+      } catch (e) {}
+    })();
+  </script>
+
+  <style>
+    :root {
+      --bg: #f7f8fa; --panel: #ffffff; --text: #10131a; --muted: #5b6472;
+      --accent: #2f6df6; --border: #e6e9ef; --shadow: 0 20px 60px rgba(16, 19, 26, 0.08);
+      --field: #ffffff; --ok: #16a34a; --err: #dc2626;
+    }
+    :root[data-theme="dark"] {
+      --bg: #0c0e13; --panel: #14171f; --text: #f2f4f8; --muted: #9aa4b2;
+      --accent: #5b8bff; --border: #232734; --shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+      --field: #0f1218; --ok: #4ade80; --err: #f87171;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root:not([data-theme]) {
+        --bg: #0c0e13; --panel: #14171f; --text: #f2f4f8; --muted: #9aa4b2;
+        --accent: #5b8bff; --border: #232734; --shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+        --field: #0f1218; --ok: #4ade80; --err: #f87171;
+      }
+    }
+
+    * { box-sizing: border-box; }
+    html, body { height: 100%; margin: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background:
+        radial-gradient(1200px 600px at 50% -10%, color-mix(in srgb, var(--accent) 14%, transparent), transparent 60%),
+        var(--bg);
+      color: var(--text);
+      display: flex; align-items: center; justify-content: center;
+      padding: 24px; -webkit-font-smoothing: antialiased;
+    }
+
+    .card {
+      background: var(--panel); border: 1px solid var(--border);
+      border-radius: 20px; box-shadow: var(--shadow);
+      max-width: 520px; width: 100%; padding: 40px; text-align: left;
+    }
+    .back {
+      display: inline-flex; align-items: center; gap: 6px;
+      color: var(--muted); text-decoration: none; font-size: 14px; margin-bottom: 18px;
+    }
+    .back:hover { color: var(--accent); }
+    h1 { font-size: clamp(24px, 5vw, 32px); margin: 0 0 8px; letter-spacing: -0.02em; }
+    p.lead { color: var(--muted); font-size: 16px; line-height: 1.6; margin: 0 0 26px; }
+
+    form { display: grid; gap: 16px; }
+    label { display: block; font-size: 13px; font-weight: 600; margin-bottom: 6px; color: var(--text); }
+    .field {
+      width: 100%; background: var(--field); color: var(--text);
+      border: 1px solid var(--border); border-radius: 12px;
+      padding: 13px 14px; font-size: 15px; font-family: inherit; transition: border-color 0.12s ease, box-shadow 0.12s ease;
+    }
+    textarea.field { min-height: 130px; resize: vertical; }
+    .field::placeholder { color: color-mix(in srgb, var(--muted) 80%, transparent); }
+    .field:focus {
+      outline: none; border-color: var(--accent);
+      box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 22%, transparent);
+    }
+    /* honeypot — hidden from humans */
+    .hp { position: absolute; left: -9999px; top: -9999px; width: 1px; height: 1px; overflow: hidden; }
+
+    button[type="submit"] {
+      background: var(--accent); color: #fff; border: none; cursor: pointer;
+      font-weight: 600; font-size: 16px; padding: 14px 26px; border-radius: 12px;
+      box-shadow: 0 8px 20px color-mix(in srgb, var(--accent) 35%, transparent);
+      transition: transform 0.12s ease, opacity 0.12s ease;
+    }
+    button[type="submit"]:hover:not(:disabled) { transform: translateY(-2px); opacity: 0.95; }
+    button[type="submit"]:disabled { opacity: 0.6; cursor: default; }
+    :focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 12px; }
+    @media (prefers-reduced-motion: reduce) {
+      button[type="submit"], .field { transition: none; }
+      button[type="submit"]:hover:not(:disabled) { transform: none; }
+    }
+
+    .status { font-size: 14px; line-height: 1.5; margin: 2px 0 0; min-height: 1.2em; }
+    .status.ok { color: var(--ok); }
+    .status.err { color: var(--err); }
+
+    .success {
+      text-align: center; padding: 8px 0 4px;
+    }
+    .success .tick {
+      width: 56px; height: 56px; border-radius: 50%; margin: 0 auto 16px;
+      display: flex; align-items: center; justify-content: center;
+      background: color-mix(in srgb, var(--ok) 16%, transparent); color: var(--ok);
+      font-size: 28px;
+    }
+    .success h2 { margin: 0 0 6px; font-size: 20px; }
+    .success p { color: var(--muted); margin: 0; }
+    [hidden] { display: none !important; }
+  </style>
+</head>
+<body>
+  <main class="card">
+    <a class="back" href="/">← back home</a>
+    <h1>Get in touch</h1>
+    <p class="lead">Have a question or just want to say hi? Drop a message below — it lands straight in my inbox.</p>
+
+    <form id="contactForm" novalidate>
+      <input type="hidden" name="access_key" value="674ee0c4-93ee-4cd3-8540-45be97f2363a" />
+      <input type="hidden" name="subject" value="New message from 10xdevelopment.nl" />
+      <input type="hidden" name="from_name" value="10x Development contact form" />
+      <!-- honeypot: bots fill this, humans never see it -->
+      <input type="checkbox" name="botcheck" class="hp" tabindex="-1" autocomplete="off" />
+
+      <div>
+        <label for="name">Name</label>
+        <input class="field" id="name" name="name" type="text" placeholder="Your name" required autocomplete="name" />
+      </div>
+      <div>
+        <label for="email">Email</label>
+        <input class="field" id="email" name="email" type="email" placeholder="you@example.com" required autocomplete="email" />
+      </div>
+      <div>
+        <label for="message">Message</label>
+        <textarea class="field" id="message" name="message" placeholder="What's on your mind?" required></textarea>
+      </div>
+
+      <button type="submit" id="submitBtn">Send message</button>
+      <p class="status" id="status" role="status" aria-live="polite"></p>
+    </form>
+
+    <div class="success" id="success" hidden>
+      <div class="tick" aria-hidden="true">✓</div>
+      <h2>Message sent</h2>
+      <p>Thanks — I'll get back to you soon.</p>
+    </div>
+  </main>
+
+  <script>
+    (function () {
+      var form = document.getElementById('contactForm');
+      var btn = document.getElementById('submitBtn');
+      var statusEl = document.getElementById('status');
+      var success = document.getElementById('success');
+
+      function setStatus(msg, kind) {
+        statusEl.textContent = msg || '';
+        statusEl.className = 'status' + (kind ? ' ' + kind : '');
+      }
+
+      form.addEventListener('submit', async function (e) {
+        e.preventDefault();
+
+        if (!form.checkValidity()) {
+          setStatus('Please fill in your name, a valid email, and a message.', 'err');
+          form.reportValidity();
+          return;
+        }
+
+        btn.disabled = true;
+        var original = btn.textContent;
+        btn.textContent = 'Sending…';
+        setStatus('');
+
+        var payload = Object.fromEntries(new FormData(form).entries());
+
+        try {
+          var res = await fetch('https://api.web3forms.com/submit', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+            body: JSON.stringify(payload)
+          });
+          var data = await res.json();
+          if (data.success) {
+            form.hidden = true;
+            success.hidden = false;
+          } else {
+            setStatus((data && data.message) || 'Something went wrong. Please try again.', 'err');
+            btn.disabled = false;
+            btn.textContent = original;
+          }
+        } catch (err) {
+          setStatus('Network error — please check your connection and try again.', 'err');
+          btn.disabled = false;
+          btn.textContent = original;
+        }
+      });
+    })();
+  </script>
+</body>
+</html>
