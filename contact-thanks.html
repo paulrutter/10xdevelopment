@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests" />
+  <title>Thanks — message sent · 10x Development</title>
+  <meta name="description" content="Thanks for getting in touch with Paul Rütter." />
+  <meta name="robots" content="noindex" />
+  <link rel="canonical" href="https://10xdevelopment.nl/contact-thanks" />
+  <meta name="theme-color" content="#f7f8fa" media="(prefers-color-scheme: light)" />
+  <meta name="theme-color" content="#0c0e13" media="(prefers-color-scheme: dark)" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+
+  <!-- Apply saved theme before paint to avoid a flash -->
+  <script>
+    (function () {
+      try {
+        var t = localStorage.getItem('theme');
+        if (t === 'dark' || t === 'light') document.documentElement.setAttribute('data-theme', t);
+      } catch (e) {}
+    })();
+  </script>
+
+  <link rel="stylesheet" href="/styles.css" />
+
+  <style>
+    .tick {
+      width: 64px; height: 64px; border-radius: 50%; margin: 0 auto 20px;
+      display: flex; align-items: center; justify-content: center;
+      background: color-mix(in srgb, var(--ok) 16%, transparent); color: var(--ok);
+      font-size: 32px; line-height: 1;
+    }
+    h1 { font-size: clamp(24px, 5vw, 32px); margin: 0 0 10px; letter-spacing: -0.02em; }
+    p.lead { color: var(--muted); font-size: 16px; line-height: 1.6; margin: 0 0 28px; }
+    .actions { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; }
+    .actions .btn { flex: 1 1 0; justify-content: center; min-width: 180px; }
+  </style>
+</head>
+<body>
+  <main class="card">
+    <div class="tick" aria-hidden="true">✓</div>
+    <h1>Thank you!</h1>
+    <p class="lead">Your message is on its way — it landed straight in my inbox and I'll get back to you soon.</p>
+
+    <div class="actions">
+      <a class="btn" href="/">← Back home</a>
+      <a class="btn secondary" href="/contact">Send another</a>
+    </div>
+  </main>
+</body>
+</html>
