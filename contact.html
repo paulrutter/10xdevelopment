@@ -62,6 +62,9 @@
       button[type="submit"], .field { transition: none; }
       button[type="submit"]:hover:not(:disabled) { transform: none; }
     }
+
+    .status { font-size: 14px; line-height: 1.5; margin: 2px 0 0; min-height: 1.2em; }
+    .status.err { color: var(--err); }
   </style>
 </head>
 <body>
@@ -92,21 +95,52 @@
       </div>
 
       <button type="submit" id="submitBtn">Send message</button>
+      <p class="status" id="status" role="status" aria-live="polite"></p>
     </form>
   </main>
 
   <script>
-    // Native POST — Web3Forms processes the submission and redirects to the
-    // configured thank-you page. This only prevents accidental double-submits.
+    // Progressive enhancement: submit via fetch and send the visitor to our
+    // own /contact-thanks page on success — this is fully in our control and
+    // does not depend on Web3Forms honoring its redirect field. If JS is
+    // unavailable, the form falls back to a native POST and the hidden
+    // `redirect` field lets Web3Forms handle it instead.
     (function () {
       var form = document.getElementById('contactForm');
       var btn = document.getElementById('submitBtn');
-      form.addEventListener('submit', function () {
-        // Let the browser's built-in validation + native POST proceed.
-        setTimeout(function () {
-          btn.disabled = true;
-          btn.textContent = 'Sending…';
-        }, 0);
+      var statusEl = document.getElementById('status');
+
+      function setStatus(msg, kind) {
+        statusEl.textContent = msg || '';
+        statusEl.className = 'status' + (kind ? ' ' + kind : '');
+      }
+
+      form.addEventListener('submit', async function (e) {
+        e.preventDefault();
+        var original = btn.textContent;
+        btn.disabled = true;
+        btn.textContent = 'Sending…';
+        setStatus('');
+
+        try {
+          var res = await fetch('https://api.web3forms.com/submit', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+            body: JSON.stringify(Object.fromEntries(new FormData(form).entries()))
+          });
+          var data = await res.json();
+          if (data.success) {
+            window.location.assign('/contact-thanks');
+          } else {
+            setStatus((data && data.message) || 'Something went wrong. Please try again.', 'err');
+            btn.disabled = false;
+            btn.textContent = original;
+          }
+        } catch (err) {
+          setStatus('Network error — please check your connection and try again.', 'err');
+          btn.disabled = false;
+          btn.textContent = original;
+        }
       });
     })();
   </script>
