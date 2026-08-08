@@ -67,7 +67,7 @@
     .status.err { color: var(--err); }
 
     .alt { color: var(--muted); font-size: 14px; line-height: 1.6; margin: 22px 0 0; }
-    .alt a { color: var(--accent); text-decoration: none; }
+    .alt a { color: var(--accent); text-decoration: none; cursor: pointer; }
     .alt a:hover { text-decoration: underline; }
   </style>
 </head>
@@ -104,7 +104,7 @@
 
     <p class="alt">
       Prefer your own mail app?
-      <a id="mailLink" rel="nofollow">Email me directly</a>.
+      <a id="mailLink" role="link" tabindex="0" rel="nofollow">Email me directly</a>.
       <noscript>Reach me at paul <span>at</span> 10xdevelopment <span>dot</span> nl.</noscript>
     </p>
   </main>
@@ -154,17 +154,30 @@
       });
     })();
 
-    // Obfuscated mailto: the address is assembled at runtime, so the raw
-    // string paul@… never appears in the served HTML for scrapers to harvest.
+    // Obfuscated mailto. The full "mailto:…" string is stored as shifted
+    // character codes (no readable address in the HTML or JS source), and is
+    // only reconstructed onto the link when a real user hovers / focuses /
+    // taps it — so crawlers that render but don't interact never see it.
     (function () {
-      var user = 'paul';
-      var domain = '10xdevelopment' + '.' + 'nl';
       var link = document.getElementById('mailLink');
-      if (link) {
-        var addr = user + '@' + domain;
-        link.href = 'mailto:' + addr;
-        link.textContent = addr;
+      if (!link) return;
+      var KEY = 7;
+      var enc = [116,104,112,115,123,118,65,119,104,124,115,71,56,55,127,107,108,125,108,115,118,119,116,108,117,123,53,117,115];
+      var built = false;
+      function build() {
+        if (built) return;
+        var s = '';
+        for (var i = 0; i < enc.length; i++) s += String.fromCharCode(enc[i] - KEY);
+        link.setAttribute('href', s);
+        built = true;
       }
+      link.addEventListener('mouseenter', build);
+      link.addEventListener('focus', build);
+      link.addEventListener('touchstart', build, { passive: true });
+      link.addEventListener('click', build);
+      link.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter' || e.key === ' ') { build(); link.click(); }
+      });
     })();
   </script>
 </body>
