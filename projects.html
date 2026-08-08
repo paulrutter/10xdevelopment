@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests" />
+  <title>Projects — Paul Rütter · 10x Development</title>
+  <meta name="description" content="Selected open-source projects and experiments by Paul Rütter — Apache Felix, node-oom-heapdump, browscap-java, and more." />
+  <link rel="canonical" href="https://10xdevelopment.nl/projects" />
+  <meta name="theme-color" content="#f7f8fa" media="(prefers-color-scheme: light)" />
+  <meta name="theme-color" content="#0c0e13" media="(prefers-color-scheme: dark)" />
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Projects — Paul Rütter · 10x Development" />
+  <meta property="og:description" content="Selected open-source projects and experiments by Paul Rütter." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://10xdevelopment.nl/projects" />
+  <meta property="og:image" content="https://10xdevelopment.nl/og-image.png" />
+
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+
+  <!-- Apply saved theme before paint to avoid a flash -->
+  <script>
+    (function () {
+      try {
+        var t = localStorage.getItem('theme');
+        if (t === 'dark' || t === 'light') document.documentElement.setAttribute('data-theme', t);
+      } catch (e) {}
+    })();
+  </script>
+
+  <link rel="stylesheet" href="/styles.css" />
+
+  <style>
+    .card { max-width: 760px; text-align: left; }
+    h1 { font-size: clamp(24px, 5vw, 32px); margin: 0 0 8px; letter-spacing: -0.02em; }
+    p.lead { color: var(--muted); font-size: 16px; line-height: 1.6; margin: 0 0 26px; }
+
+    .grid {
+      display: grid;
+      gap: 16px;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    }
+    .proj {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 20px;
+      text-decoration: none;
+      color: var(--text);
+      transition: transform 0.12s ease, border-color 0.12s ease;
+    }
+    .proj:hover { transform: translateY(-2px); border-color: var(--accent); }
+    .proj-head { display: flex; align-items: baseline; justify-content: space-between; gap: 10px; }
+    .proj-head h2 { font-size: 16px; margin: 0; letter-spacing: -0.01em; }
+    .lang {
+      font-size: 11px; color: var(--muted);
+      border: 1px solid var(--border); border-radius: 999px;
+      padding: 2px 9px; white-space: nowrap; flex: none;
+    }
+    .proj-desc { color: var(--muted); font-size: 13.5px; line-height: 1.55; margin: 0; flex: 1; }
+    .tags { display: flex; gap: 6px; flex-wrap: wrap; }
+    .tag {
+      font-size: 11px; color: var(--accent);
+      background: color-mix(in srgb, var(--accent) 12%, transparent);
+      border-radius: 999px; padding: 2px 9px; font-weight: 600;
+    }
+    .proj-link { color: var(--accent); font-size: 13px; font-weight: 600; }
+
+    .all { margin: 26px 0 0; font-size: 14px; color: var(--muted); }
+    .all a { color: var(--accent); text-decoration: none; }
+    .all a:hover { text-decoration: underline; }
+
+    @media (prefers-reduced-motion: reduce) {
+      .proj { transition: none; }
+      .proj:hover { transform: none; }
+    }
+  </style>
+</head>
+<body>
+  <main class="card">
+    <a class="back" href="/">← back home</a>
+    <h1>Projects</h1>
+    <p class="lead">A selection of open-source work and experiments — from Apache committer work to production debugging tools and the odd hackathon.</p>
+
+    <div class="grid">
+      <a class="proj" href="https://github.com/apache/felix-dev" target="_blank" rel="noopener">
+        <div class="proj-head"><h2>Apache Felix</h2><span class="lang">Java</span></div>
+        <p class="proj-desc">The Apache Felix OSGi framework and its subprojects. As a PMC member I focus on the HTTP and Maven Bundle Plugin components.</p>
+        <div class="tags"><span class="tag">Apache PMC</span></div>
+        <span class="proj-link">View on GitHub →</span>
+      </a>
+
+      <a class="proj" href="https://github.com/blueconic/node-oom-heapdump" target="_blank" rel="noopener">
+        <div class="proj-head"><h2>node-oom-heapdump</h2><span class="lang">JavaScript</span></div>
+        <p class="proj-desc">Captures a V8 heap snapshot or CPU profile the moment a Node.js process runs out of memory — a practical tool for hunting down memory leaks in production.</p>
+        <div class="tags"><span class="tag">Open source · BlueConic</span></div>
+        <span class="proj-link">View on GitHub →</span>
+      </a>
+
+      <a class="proj" href="https://github.com/blueconic/browscap-java" target="_blank" rel="noopener">
+        <div class="proj-head"><h2>browscap-java</h2><span class="lang">Java</span></div>
+        <p class="proj-desc">A fast Java library that detects browser, device, and platform capabilities from User-Agent strings, based on the Browser Capabilities Project.</p>
+        <div class="tags"><span class="tag">Open source · BlueConic</span></div>
+        <span class="proj-link">View on GitHub →</span>
+      </a>
+
+      <a class="proj" href="https://github.com/paulrutter/lexus-history-agent" target="_blank" rel="noopener">
+        <div class="proj-head"><h2>lexus-history-agent</h2><span class="lang">Python</span></div>
+        <p class="proj-desc">A hackathon experiment that forecasts car maintenance from a corpus of vehicle history, driven by agentic AI.</p>
+        <div class="tags"><span class="tag">Hackathon · AI</span></div>
+        <span class="proj-link">View on GitHub →</span>
+      </a>
+    </div>
+
+    <p class="all">See everything on <a href="https://github.com/paulrutter" target="_blank" rel="noopener">github.com/paulrutter →</a></p>
+  </main>
+</body>
+</html>

@@ -109,10 +109,13 @@
     }
 
     .contact-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
       margin-top: 12px;
     }
     .contact-row .btn {
-      width: 100%;
+      flex: 1 1 0;
       justify-content: center;
     }
 
@@ -291,6 +294,12 @@
     </div>
 
     <div class="contact-row">
+      <a class="btn secondary" href="/projects">
+        <svg viewBox="0 0 16 16" aria-hidden="true" style="fill: currentColor;">
+          <path d="M1.75 3A1.75 1.75 0 000 4.75v6.5C0 12.216.784 13 1.75 13h12.5A1.75 1.75 0 0016 11.25v-6.5A1.75 1.75 0 0014.25 3H8.5L7.2 1.7A1 1 0 006.5 1.4H1.75zm0 1.5H6.3l1.3 1.3a1 1 0 00.7.3h5.95c.14 0 .25.11.25.25v5.4c0 .14-.11.25-.25.25H1.75a.25.25 0 01-.25-.25v-7c0-.14.11-.25.25-.25z"/>
+        </svg>
+        Projects
+      </a>
       <a class="btn secondary" href="/contact">
         <svg viewBox="0 0 16 16" aria-hidden="true" style="fill: currentColor;">
           <path d="M2 3.5A1.5 1.5 0 013.5 2h9A1.5 1.5 0 0114 3.5v9a1.5 1.5 0 01-1.5 1.5h-9A1.5 1.5 0 012 12.5v-9zm1.2.2l4.8 3.3 4.8-3.3H3.2zM13 4.6l-4.6 3.2a.8.8 0 01-.8 0L3 4.6v7.9h10V4.6z"/>
@@ -405,7 +414,7 @@
           return '<span class="muted">cat: ' + esc(f) + ': No such file or directory</span>';
         },
         projects: function () {
-          return 'The code lives on GitHub → <a href="https://github.com/paulrutter" target="_blank" rel="noopener">github.com/paulrutter</a>\n<span class="muted">(pinned repos are the good stuff)</span>';
+          return 'Selected work → <a href="/projects">10xdevelopment.nl/projects</a>\nAll code → <a href="https://github.com/paulrutter" target="_blank" rel="noopener">github.com/paulrutter</a>';
         },
         contact: function () {
           return 'Send me a message → <a href="/contact">10xdevelopment.nl/contact</a>\nGitHub:   <a href="https://github.com/paulrutter" target="_blank" rel="noopener">github.com/paulrutter</a>\nLinkedIn: <a href="https://www.linkedin.com/in/rutterpaul/" target="_blank" rel="noopener">linkedin.com/in/rutterpaul</a>';
