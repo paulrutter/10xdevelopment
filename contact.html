@@ -65,6 +65,10 @@
 
     .status { font-size: 14px; line-height: 1.5; margin: 2px 0 0; min-height: 1.2em; }
     .status.err { color: var(--err); }
+
+    .alt { color: var(--muted); font-size: 14px; line-height: 1.6; margin: 22px 0 0; }
+    .alt a { color: var(--accent); text-decoration: none; }
+    .alt a:hover { text-decoration: underline; }
   </style>
 </head>
 <body>
@@ -97,6 +101,12 @@
       <button type="submit" id="submitBtn">Send message</button>
       <p class="status" id="status" role="status" aria-live="polite"></p>
     </form>
+
+    <p class="alt">
+      Prefer your own mail app?
+      <a id="mailLink" rel="nofollow">Email me directly</a>.
+      <noscript>Reach me at paul <span>at</span> 10xdevelopment <span>dot</span> nl.</noscript>
+    </p>
   </main>
 
   <script>
@@ -142,6 +152,19 @@
           btn.textContent = original;
         }
       });
+    })();
+
+    // Obfuscated mailto: the address is assembled at runtime, so the raw
+    // string paul@… never appears in the served HTML for scrapers to harvest.
+    (function () {
+      var user = 'paul';
+      var domain = '10xdevelopment' + '.' + 'nl';
+      var link = document.getElementById('mailLink');
+      if (link) {
+        var addr = user + '@' + domain;
+        link.href = 'mailto:' + addr;
+        link.textContent = addr;
+      }
     })();
   </script>
 </body>
