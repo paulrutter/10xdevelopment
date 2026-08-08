@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests" />
+  <title>About — Paul Rütter · 10x Development</title>
+  <meta name="description" content="About Paul Rütter — Director of Technology at BlueConic, Apache Felix PMC, and open-source contributor." />
+  <link rel="canonical" href="https://10xdevelopment.nl/about" />
+  <meta name="theme-color" content="#f7f8fa" media="(prefers-color-scheme: light)" />
+  <meta name="theme-color" content="#0c0e13" media="(prefers-color-scheme: dark)" />
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="About — Paul Rütter · 10x Development" />
+  <meta property="og:description" content="Director of Technology at BlueConic, Apache Felix PMC, and open-source contributor." />
+  <meta property="og:type" content="profile" />
+  <meta property="og:url" content="https://10xdevelopment.nl/about" />
+  <meta property="og:image" content="https://10xdevelopment.nl/og-image.png" />
+
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+
+  <!-- Apply saved theme before paint to avoid a flash -->
+  <script>
+    (function () {
+      try {
+        var t = localStorage.getItem('theme');
+        if (t === 'dark' || t === 'light') document.documentElement.setAttribute('data-theme', t);
+      } catch (e) {}
+    })();
+  </script>
+
+  <link rel="stylesheet" href="/styles.css" />
+
+  <style>
+    .card { max-width: 620px; text-align: left; }
+    h1 { font-size: clamp(24px, 5vw, 32px); margin: 0 0 18px; letter-spacing: -0.02em; }
+
+    .prose p { color: var(--text); font-size: 16px; line-height: 1.7; margin: 0 0 18px; }
+    .prose p:last-child { margin-bottom: 0; }
+    .prose a { color: var(--accent); text-decoration: none; }
+    .prose a:hover { text-decoration: underline; }
+
+    .sub {
+      font-size: 12px; text-transform: uppercase; letter-spacing: 0.06em;
+      color: var(--muted); margin: 30px 0 14px; font-weight: 700;
+    }
+    .glance { list-style: none; padding: 0; margin: 0; display: grid; gap: 11px; }
+    .glance li {
+      position: relative; padding-left: 20px;
+      font-size: 15px; line-height: 1.5; color: var(--text);
+    }
+    .glance li::before {
+      content: ""; position: absolute; left: 0; top: 8px;
+      width: 7px; height: 7px; border-radius: 50%; background: var(--accent);
+    }
+
+    .actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 30px; }
+    .actions .btn { flex: 1 1 160px; justify-content: center; }
+  </style>
+</head>
+<body>
+  <main class="card">
+    <a class="back" href="/">← back home</a>
+    <h1>About</h1>
+
+    <div class="prose">
+      <p><strong>Hi, I'm Paul Rütter.</strong> I'm Director of Technology at <strong>BlueConic</strong>, a customer data platform. My work sits where engineering meets leadership: designing systems that stay simple as they grow, building teams that move fast without breaking things, and shipping software that actually matters to the people using it.</p>
+
+      <p>Outside the day job, I'm a <strong>PMC member of Apache Felix</strong>, focused on the HTTP and Maven Bundle Plugin subprojects. I maintain a couple of open-source libraries that came out of real production needs — <strong>node-oom-heapdump</strong> for hunting down Node.js memory leaks, and <strong>browscap-java</strong> for fast user-agent detection — and I contribute to other projects across the ecosystem, including <strong>Eclipse Jersey</strong> and <strong>DuckDB</strong>, among others. Lately I've been tinkering with <strong>agentic AI</strong> — there's a selection on the <a href="/projects">projects</a> page.</p>
+
+      <p>The "10x" here isn't about heroics. It's about leverage: the right tool, a clean abstraction, or a bit of automation that makes everything after it easier. This site is a small example — a fast, static personal home built on a deliberately lean stack.</p>
+    </div>
+
+    <p class="sub">At a glance</p>
+    <ul class="glance">
+      <li>Director of Technology @ BlueConic</li>
+      <li>Apache Felix PMC — HTTP &amp; Maven Bundle Plugin</li>
+      <li>Open source: node-oom-heapdump, browscap-java</li>
+      <li>Contributor to Eclipse Jersey, DuckDB &amp; more</li>
+      <li>Java · JavaScript / Node · Python</li>
+      <li>Based in the Netherlands</li>
+    </ul>
+
+    <div class="actions">
+      <a class="btn" href="/projects">View projects</a>
+      <a class="btn secondary" href="/contact">Get in touch</a>
+    </div>
+  </main>
+</body>
+</html>

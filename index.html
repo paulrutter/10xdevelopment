@@ -115,7 +115,7 @@
       margin-top: 12px;
     }
     .contact-row .btn {
-      flex: 1 1 0;
+      flex: 1 1 130px;
       justify-content: center;
     }
 
@@ -294,6 +294,12 @@
     </div>
 
     <div class="contact-row">
+      <a class="btn secondary" href="/about">
+        <svg viewBox="0 0 16 16" aria-hidden="true" style="fill: currentColor;">
+          <path d="M8 8a3 3 0 100-6 3 3 0 000 6zm0 1.4c-2.7 0-5 1.5-5 3.4V14h10v-1.2c0-1.9-2.3-3.4-5-3.4z"/>
+        </svg>
+        About
+      </a>
       <a class="btn secondary" href="/projects">
         <svg viewBox="0 0 16 16" aria-hidden="true" style="fill: currentColor;">
           <path d="M1.75 3A1.75 1.75 0 000 4.75v6.5C0 12.216.784 13 1.75 13h12.5A1.75 1.75 0 0016 11.25v-6.5A1.75 1.75 0 0014.25 3H8.5L7.2 1.7A1 1 0 006.5 1.4H1.75zm0 1.5H6.3l1.3 1.3a1 1 0 00.7.3h5.95c.14 0 .25.11.25.25v5.4c0 .14-.11.25-.25.25H1.75a.25.25 0 01-.25-.25v-7c0-.14.11-.25.25-.25z"/>
@@ -399,7 +405,7 @@
         whoami: function () {
           return 'Paul Rütter — Director of Technology @ <span class="accent">BlueConic</span>. Builder, tinkerer, occasional 10x-er.';
         },
-        about: function () { return COMMANDS['cat'](['about.txt']); },
+        about: function () { return COMMANDS['cat'](['about.txt']) + '\n<span class="muted">Full page → </span><a href="/about">10xdevelopment.nl/about</a>'; },
         ls: function () {
           return 'about.txt   projects/   contact.txt   resume.pdf   <span class="muted">secrets/ 🔒</span>';
         },
