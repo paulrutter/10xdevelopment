@@ -77,7 +77,16 @@
       font-size: 11px; color: var(--muted);
       border: 1px solid var(--border); border-radius: 999px;
       padding: 2px 9px; white-space: nowrap; flex: none;
+      display: inline-flex; align-items: center; gap: 6px;
     }
+    .lang::before {
+      content: ""; flex: none;
+      width: 8px; height: 8px; border-radius: 50%;
+      background: var(--lang, var(--muted));
+    }
+    .lang.java { --lang: #b07219; }
+    .lang.js { --lang: #f1e05a; }
+    .lang.python { --lang: #3572a5; }
     .proj-desc { color: var(--muted); font-size: 13.5px; line-height: 1.55; margin: 0; flex: 1; }
     .tags { display: flex; gap: 6px; flex-wrap: wrap; }
     .tag {
@@ -108,7 +117,7 @@
         <div class="proj-head">
           <span class="proj-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M16.5 9.4 7.5 4.21"/><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><path d="m3.3 7 8.7 5 8.7-5"/><path d="M12 22V12"/></svg></span>
           <h2><a href="https://github.com/apache/felix-dev" target="_blank" rel="noopener">Apache Felix</a></h2>
-          <span class="lang">Java</span>
+          <span class="lang java">Java</span>
         </div>
         <p class="proj-desc">The Apache Felix OSGi framework. As a PMC member I focus on the HTTP and Maven Bundle Plugin subprojects.</p>
         <div class="tags"><span class="tag">Apache PMC</span></div>
@@ -122,7 +131,7 @@
         <div class="proj-head">
           <span class="proj-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="2"/><rect x="9" y="9" width="6" height="6"/><path d="M9 2v2"/><path d="M15 2v2"/><path d="M9 20v2"/><path d="M15 20v2"/><path d="M2 9h2"/><path d="M2 15h2"/><path d="M20 9h2"/><path d="M20 15h2"/></svg></span>
           <h2>node-oom-heapdump</h2>
-          <span class="lang">JavaScript</span>
+          <span class="lang js">JavaScript</span>
         </div>
         <p class="proj-desc">Captures a V8 heap snapshot or CPU profile the moment a Node.js process runs out of memory — a practical tool for hunting down memory leaks in production.</p>
         <div class="tags"><span class="tag">Open source · BlueConic</span></div>
@@ -133,7 +142,7 @@
         <div class="proj-head">
           <span class="proj-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/></svg></span>
           <h2>browscap-java</h2>
-          <span class="lang">Java</span>
+          <span class="lang java">Java</span>
         </div>
         <p class="proj-desc">A fast Java library that detects browser, device, and platform capabilities from User-Agent strings, based on the Browser Capabilities Project.</p>
         <div class="tags"><span class="tag">Open source · BlueConic</span></div>
@@ -144,7 +153,7 @@
         <div class="proj-head">
           <span class="proj-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M19 17h2c.6 0 1-.4 1-1v-3c0-.9-.7-1.7-1.5-1.9C18.7 10.6 16 10 16 10s-1.3-1.4-2.2-2.3c-.5-.4-1.1-.7-1.8-.7H5c-.6 0-1.1.4-1.4.9l-1.5 2.9A3.7 3.7 0 0 0 2 12v4c0 .6.4 1 1 1h2"/><circle cx="7" cy="17" r="2"/><path d="M9 17h6"/><circle cx="17" cy="17" r="2"/></svg></span>
           <h2>lexus-history-agent</h2>
-          <span class="lang">Python</span>
+          <span class="lang python">Python</span>
         </div>
         <p class="proj-desc">A hackathon experiment that forecasts car maintenance from a corpus of vehicle history, driven by agentic AI.</p>
         <div class="tags"><span class="tag">Hackathon · AI</span></div>
