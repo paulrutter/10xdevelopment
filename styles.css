@@ -15,11 +15,11 @@
   --field: #ffffff;
   --ok: #16a34a;
   --err: #dc2626;
-  /* AI-style mesh gradient blobs (subtle on light) */
-  --g1: rgba(124, 58, 237, 0.12);
-  --g2: rgba(56, 132, 255, 0.12);
-  --g3: rgba(236, 72, 153, 0.10);
-  --g4: rgba(6, 182, 212, 0.10);
+  /* AI-style mesh gradient blobs (prominent on light) */
+  --g1: rgba(124, 58, 237, 0.22);
+  --g2: rgba(56, 132, 255, 0.22);
+  --g3: rgba(236, 72, 153, 0.18);
+  --g4: rgba(6, 182, 212, 0.18);
 }
 /* Explicit user choice wins */
 :root[data-theme="dark"] {
