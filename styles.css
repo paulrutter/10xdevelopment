@@ -15,6 +15,11 @@
   --field: #ffffff;
   --ok: #16a34a;
   --err: #dc2626;
+  /* AI-style mesh gradient blobs (subtle on light) */
+  --g1: rgba(124, 58, 237, 0.12);
+  --g2: rgba(56, 132, 255, 0.12);
+  --g3: rgba(236, 72, 153, 0.10);
+  --g4: rgba(6, 182, 212, 0.10);
 }
 /* Explicit user choice wins */
 :root[data-theme="dark"] {
@@ -29,6 +34,11 @@
   --field: #0f1218;
   --ok: #4ade80;
   --err: #f87171;
+  /* AI-style mesh gradient blobs (richer aurora on dark) */
+  --g1: rgba(139, 92, 246, 0.24);
+  --g2: rgba(56, 132, 255, 0.20);
+  --g3: rgba(236, 72, 153, 0.18);
+  --g4: rgba(34, 211, 238, 0.16);
 }
 /* No explicit choice → follow the OS */
 @media (prefers-color-scheme: dark) {
@@ -44,6 +54,11 @@
     --field: #0f1218;
     --ok: #4ade80;
     --err: #f87171;
+    /* AI-style mesh gradient blobs (richer aurora on dark) */
+    --g1: rgba(139, 92, 246, 0.24);
+    --g2: rgba(56, 132, 255, 0.20);
+    --g3: rgba(236, 72, 153, 0.18);
+    --g4: rgba(34, 211, 238, 0.16);
   }
 }
 
@@ -52,9 +67,7 @@ html, body { margin: 0; }
 
 body {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-  background:
-    radial-gradient(1200px 600px at 50% -10%, color-mix(in srgb, var(--accent) 14%, transparent), transparent 60%),
-    var(--bg);
+  background: var(--bg);
   color: var(--text);
   min-height: 100vh;
   min-height: 100dvh;
@@ -63,6 +76,21 @@ body {
   justify-content: center;
   padding: 24px;
   -webkit-font-smoothing: antialiased;
+}
+
+/* AI-style mesh gradient: a fixed, viewport-anchored layer behind everything.
+   Sits above body's solid background but behind all content (z-index: -1). */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    radial-gradient(55vw 55vw at 8% -5%, var(--g1), transparent 60%),
+    radial-gradient(50vw 50vw at 98% 8%, var(--g2), transparent 60%),
+    radial-gradient(50vw 50vw at 92% 100%, var(--g3), transparent 60%),
+    radial-gradient(45vw 45vw at 0% 95%, var(--g4), transparent 60%);
 }
 
 .card {
