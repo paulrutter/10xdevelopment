@@ -96,6 +96,24 @@
     }
     .proj-link { color: var(--accent); font-size: 13px; font-weight: 600; }
 
+    .sub {
+      font-size: 12px; text-transform: uppercase; letter-spacing: 0.06em;
+      color: var(--muted); margin: 30px 0 14px; font-weight: 700;
+    }
+    .contribs { list-style: none; padding: 0; margin: 0; display: grid; gap: 12px; }
+    .contribs li {
+      position: relative; padding-left: 20px;
+      font-size: 14px; line-height: 1.5; color: var(--text);
+    }
+    .contribs li::before {
+      content: ""; position: absolute; left: 0; top: 7px;
+      width: 7px; height: 7px; border-radius: 50%; background: var(--accent);
+    }
+    .contribs .ct { font-weight: 600; }
+    .contribs .prs { color: var(--muted); }
+    .contribs .prs a { color: var(--accent); text-decoration: none; }
+    .contribs .prs a:hover { text-decoration: underline; }
+
     .all { margin: 26px 0 0; font-size: 14px; color: var(--muted); }
     .all a { color: var(--accent); text-decoration: none; }
     .all a:hover { text-decoration: underline; }
@@ -160,6 +178,18 @@
         <span class="proj-link">View on GitHub →</span>
       </a>
     </div>
+
+    <p class="sub">Recent contributions</p>
+    <ul class="contribs">
+      <li>
+        <span class="ct">JDK 25 support</span> — Apache Felix
+        <span class="prs">· <a href="https://github.com/apache/felix-dev/pull/433" target="_blank" rel="noopener">#433</a> · <a href="https://github.com/apache/felix-dev/pull/552" target="_blank" rel="noopener">#552</a></span>
+      </li>
+      <li>
+        <span class="ct">Upstream contribution to plurl</span> — Eclipse OSGi Technology
+        <span class="prs">· <a href="https://github.com/eclipse-osgi-technology/plurl/pull/63" target="_blank" rel="noopener">#63</a></span>
+      </li>
+    </ul>
 
     <p class="all">See everything on <a href="https://github.com/paulrutter" target="_blank" rel="noopener">github.com/paulrutter →</a></p>
   </main>
