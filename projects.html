@@ -94,6 +94,8 @@
       background: color-mix(in srgb, var(--accent) 12%, transparent);
       border-radius: 999px; padding: 2px 9px; font-weight: 600;
     }
+    a.tag { text-decoration: none; transition: background 0.12s ease; }
+    a.tag:hover { background: color-mix(in srgb, var(--accent) 22%, transparent); }
     .proj-link { color: var(--accent); font-size: 13px; font-weight: 600; }
 
     .sub {
@@ -138,7 +140,7 @@
           <span class="lang java">Java</span>
         </div>
         <p class="proj-desc">The Apache Felix OSGi framework. As a PMC member I focus on the HTTP and Maven Bundle Plugin subprojects.</p>
-        <div class="tags"><span class="tag">Apache PMC</span></div>
+        <div class="tags"><a class="tag" href="https://people.apache.org/phonebook.html?pmc=felix" target="_blank" rel="noopener">Apache PMC</a></div>
         <div class="proj-links">
           <a class="proj-link" href="https://github.com/apache/felix-dev/tree/master/http" target="_blank" rel="noopener">HTTP →</a>
           <a class="proj-link" href="https://github.com/apache/felix-dev/tree/master/tools/maven-bundle-plugin" target="_blank" rel="noopener">Maven Bundle Plugin →</a>
