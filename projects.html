@@ -118,6 +118,8 @@
       border-radius: 999px; padding: 1px 7px; font-weight: 700;
       margin-left: 4px; vertical-align: middle;
     }
+    a.shipped { text-decoration: none; transition: background 0.12s ease; }
+    a.shipped:hover { background: color-mix(in srgb, var(--ok) 26%, transparent); }
     .contribs .prs { color: var(--muted); }
     .contribs .prs a { color: var(--accent); text-decoration: none; }
     .contribs .prs a:hover { text-decoration: underline; }
@@ -190,7 +192,7 @@
     <p class="sub">Recent contributions</p>
     <ul class="contribs">
       <li>
-        <span class="ct">JDK 25 support</span> <span class="shipped">Released</span> — Apache Felix
+        <span class="ct">JDK 25 support</span> <a class="shipped" href="https://felix.apache.org/documentation/subprojects/apache-felix-framework/apache-felix-framework-8-upgrade-guide.html" target="_blank" rel="noopener">Released</a> — Apache Felix
         <span class="prs">· <a href="https://github.com/apache/felix-dev/pull/433" target="_blank" rel="noopener">#433</a> · <a href="https://github.com/apache/felix-dev/pull/552" target="_blank" rel="noopener">#552</a></span>
       </li>
       <li>
